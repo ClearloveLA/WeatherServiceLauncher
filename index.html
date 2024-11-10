@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业气象服务系统总汇</title>
+    <!-- 引入 Vue.js 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <!-- 引用openCS--打开应用程序的逻辑 -->
+    <!-- ... -->
+    <!-- 引用基本样式 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 网站大标题 -->
+        <h1>专业气象服务系统总汇</h1>
+        <div id="websites-list">
+            <!-- 网站列表将由 JavaScript 动态生成 -->
+        </div>
+    </div>   
+    <script src="script.js"></script>
+</body>
+<!-- 该网页的主体逻辑 -->
+<script>
+/*
+  websites数组循环生成网页结构
+  后续 新增网站 或 更改网站的配置 只需改动此数组相应属性即可
+    其中属性释义：
+      name 网站名称
+      icon 网站图标url
+      url 网站路径
+      image 网站图标
+      description 网站描述
+      docUrl 网站说明文档
+*/
+const websites = [
+    {
+        name: "北海智慧气象屏信息发布系统",
+        icon: 'assets/icon-block.png',
+        url: "http://sws.bjzkzm.com",
+        image: "assets/p1.png",
+        description: "提供天气实况、气象预警、智能网格预报、天气雷达、气象卫星、专项服务产品数据展示；根据位置距离划分三区：警戒区、预警区、防御区，利用人工智能模型，智能实现屏幕提醒、并通过短信、电话外呼、微信公众号服务信息实现对服务对象进行提醒。",
+        docUrl: "./data/智慧气象屏信息发布系统操作说明.doc" // 说明文档的 URL
+    },
+    {
+        name: "北海微信公众号气象信息发布系统",
+        icon: 'assets/icon-wc.png',
+        url: "http://beihai.welife100.com/system.php?m=Public&a=index",
+        image: "assets/p2.png",
+        description: "提供面向微信定制用户的信息编辑和微信信息推送功能；提供天气实况、气象预警、智能网格预报、天气雷达、气象卫星、专项服务产品显示和查询；提供基于用户位置的降水临近预报信息智能推送。",
+        docUrl: "./data/分类强对流天气智能监测预报产品（一期）技术报告.doc" // 说明文档的 URL
+    },
+    {
+        name: "云MAS手机短信发布系统",
+        icon: 'assets/icon-phone.png',
+        url: "https://mas.10086.cn",
+        image: "assets/p3.png",
+        description: "提供面向全网通手机定制用户的手机短信编辑和群发功能。",
+        docUrl: "./data/UserAPI.doc" // 说明文档的 URL
+    },
+    {
+        name: "广西港口天气AI精细化预报系统",
+        icon: 'assets/icon-boat.png',
+        url: "http://beihai.tyweather.com:65525/login",
+        image: "assets/p4.png",
+        description: "基于EC细网格模式产品和气象观测数据，应用深度学习技术构建AI订正预报模型，提供各主要港口位置未来2天逐3小时阵风风速和能见度预报。",
+        docUrl: "./data/广西沿海代表性站点海面阵风AI预报模型研究技术报告v2.0.doc" // 说明文档的 URL
+    },
+    {
+        name: "广西智能化雷电监测预警系统",
+        icon: 'assets/icon-elec.png',
+        url: "http://117.141.147.150:8888/lpsweb",
+        image: "assets/p5.png",
+        description: "基于网站、手机APP，微信公众号等方式提供雷电实时监测服务，通过雷达、闪电结合二维地图了解雷暴活动过程；支持定制三圈范围（责任区、监视区、警戒区）提前预知雷电活动落区及趋势；提供过去24小时的闪电散点图、密度图、强度图等三种数据统计。",
+        docUrl: "./data/广西智能化雷电预警服务平台-北海铁山港公共码头.doc" // 说明文档的 URL
+    },
+    {
+        name: "广西石化行业智慧气象服务系统",
+        icon: 'assets/icon-petro.png',
+        url: "http://117.141.147.154:8088",
+        image: "assets/p6.png",
+        description: "提供面向石化企业场区的天气实况、气象预警、智能网格预报、天气雷达、气象卫星、专项服务产品数据展示；提供三圈范围（责任区、监视区、警戒区）石化行业高影响天气落区及趋势。",
+        docUrl: "./data/石化行业气象灾害防御技术研发及应用-用户使用手册.doc" // 说明文档的 URL
+    },
+    {
+        name: "北海行业气象观测站数据应用端系统",
+        icon: 'assets/icon-wea.png',
+        url: "#",  // 此处直接打开系统
+        image: "assets/p7.png",
+        docUrl: "./data/志愿气象站数据应用系统（电脑版）操作手册.doc" // 说明文档的 URL
+       
+    },
+    {
+        name: "北海行业气象观测站数据微信端系统",
+        icon: 'assets/icon-wea.png',
+        url: "http://beihai.welife100.com/beihaizhiyuanzhezhan/#/login",
+        image: "assets/p8.png",
+        description: "以微信H5页面显示行业气象观测站实时数据和历史数据。",
+        docUrl: "./data/技术报告微信.doc" // 说明文档的 URL
+    },
+    {
+        name: "雷暴大风监测预报系统",
+        icon: 'assets/icon-wind.png',
+        url: "http://#",
+        image: "assets/p9.png",
+        description: "（本系统仅提供系统DEMO图片显示，系统图片正在收集当中）简介：基于北海市及其周边新一代多普勒天气雷达观测资料，6分钟滚动加工制作雷暴大风监测产品和6分钟间隔1小时预报时效的雷暴大风预报产品。",
+    }
+]
+
+// 全局函数，用于打开应用程序
+function open_miniapp() {
+    // console.log(navigator.userAgent)
+    // 检测用户的设备是否是Windows系统
+    if (/windows|win32/i.test(navigator.userAgent)){
+        // 检测用户的浏览器是否能使用universalLink
+        let openApp = false
+        let userAgent = navigator.userAgent
+        //判断是否 Firefox浏览器
+        if (userAgent.indexOf("Firefox") > -1) {
+            openApp = true
+        }
+        //判断是否 Chrome浏览器
+        if (userAgent.indexOf("Chrome") > -1){
+            openApp = true
+        }
+        //判断是否 Edge浏览器
+        if (userAgent.indexOf("Edg") > -1){
+            openApp = true
+        }
+        if (openApp){
+            try {
+                // 此处即为更改的用户注册表名称
+                window.location.href="Webshell://"
+            } catch (err) {
+                console.log(err)
+                alert("出错了，请手动打开应用程序！")
+            }
+        } else {
+            alert("您的浏览器不支持自动打开exe，请手动打开程序！")
+        }
+    } else {
+        alert("您的设备暂不支持运行小程序，请在Windows电脑上进行操作！")
+    }
+}
+
+// 此数组 用于动态生成网页结构！
+const websitesList = document.getElementById('websites-list')
+
+websites.forEach((website, index) => { // 添加一个参数 index 来获取当前循环的索引
+    const websiteDiv = document.createElement('div')
+    websiteDiv.classList.add('website')
+
+    const websiteLink = document.createElement('a')
+    websiteLink.target = '_blank' // 在新标签页或新窗口中打开链接
+    websiteLink.href = website.url
+
+    const websiteImage = document.createElement('img')
+    websiteImage.src = website.image;
+    websiteImage.alt = website.name;
+
+    const websiteIcon = document.createElement('img')
+    websiteIcon.src = website.icon;
+    websiteIcon.alt = website.name;
+    websiteIcon.style.width = '25px'; // 设置宽度为50像素
+    websiteIcon.style.height = '25px'; // 设置高度为50像素
+    websiteIcon.classList.add('icon-small'); // 添加类名
+
+
+    const websiteName = document.createElement('h2')
+    websiteName.textContent = website.name
+    websiteName.style.display = 'inline-block'
+    const websiteDescription = document.createElement('p')
+    websiteDescription.textContent = website.description
+
+    const docLink = document.createElement('a') // 创建说明文档的超链接
+    docLink.href = website.docUrl
+    docLink.textContent = "说明文档 点击查看"
+    docLink.target = '_blank' // 在新标签页或新窗口中打开说明文档
+
+
+    // 检查是否是第七个盒子，然后再添加点击事件监听器
+    if (index === 6) {
+        websiteImage.addEventListener('click', open_miniapp);
+    }
+    // 第8个盒子 即demo盒子 无路径 禁止跳转
+    if (index === 8) {
+        websiteLink.target = '' 
+        websiteLink.href = '#'
+        docLink.href = '#'
+    }
+
+    websiteLink.appendChild(websiteImage)
+    websiteLink.appendChild(websiteIcon)
+
+    websiteLink.appendChild(websiteName)
+
+    websiteDiv.appendChild(websiteLink)
+    websiteDiv.appendChild(websiteDescription)
+
+    websiteDiv.appendChild(docLink) // 添加说明文档的超链接
+
+    websitesList.appendChild(websiteDiv)
+})
+
+
+</script>
+</html>

@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\Webshell]
+@="URL:Webshell Protocol Handler"
+"URL Protocol"=""
+[HKEY_CLASSES_ROOT\Webshell\DefaultIcon]
+@="D:\\cs\\CAWSAnyWherePlus.exe"
+[HKEY_CLASSES_ROOT\Webshell\shell]
+@= ""
+[HKEY_CLASSES_ROOT\Webshell\shell\open]
+@= ""
+[HKEY_CLASSES_ROOT\Webshell\shell\open\command]
+@="\"D:\\cs\\CAWSAnyWherePlus.exe\""
